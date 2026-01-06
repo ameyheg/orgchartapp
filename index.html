@@ -1,0 +1,5878 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Org Chart - Organizational Hierarchy Management</title>
+
+    <meta name="description" content="Create, edit, and export organizational hierarchy charts for HR teams">
+
+    <style>
+/* styles.css - Premium design system for Org Chart App */
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+
+
+:root {
+
+    --bg-primary: #f1f5f9;
+
+    --bg-secondary: #ffffff;
+
+    --bg-tertiary: #e2e8f0;
+
+    --text-primary: #1e293b;
+
+    --text-secondary: #64748b;
+
+    --text-muted: #94a3b8;
+
+    --accent-primary: #3b82f6;
+
+    --accent-hover: #2563eb;
+
+    --success: #10b981;
+
+    --warning: #f59e0b;
+
+    --danger: #ef4444;
+
+    --border-color: #e2e8f0;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    --radius-sm: 6px;
+
+    --radius-md: 10px;
+
+    --radius-lg: 16px;
+
+    --transition: all 0.2s ease;
+
+}
+
+
+
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+
+body {
+
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    background: var(--bg-primary);
+
+    color: var(--text-primary);
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+
+}
+
+
+
+/* Header */
+
+.app-header {
+
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+
+    color: white;
+
+    padding: 16px 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    box-shadow: var(--shadow-lg);
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+}
+
+
+
+.app-logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+
+.app-logo svg {
+
+    width: 32px;
+
+    height: 32px;
+
+}
+
+
+
+.app-logo h1 {
+
+    font-size: 1.25rem;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+}
+
+
+
+.header-search {
+
+    flex: 1;
+
+    max-width: 400px;
+
+    position: relative;
+
+}
+
+
+
+.header-search input {
+
+    width: 100%;
+
+    padding: 10px 16px 10px 42px;
+
+    border: none;
+
+    border-radius: var(--radius-md);
+
+    background: rgba(255, 255, 255, 0.1);
+
+    color: white;
+
+    font-size: 0.875rem;
+
+    transition: var(--transition);
+
+}
+
+
+
+.header-search input::placeholder {
+
+    color: rgba(255, 255, 255, 0.6);
+
+}
+
+
+
+.header-search input:focus {
+
+    outline: none;
+
+    background: rgba(255, 255, 255, 0.2);
+
+}
+
+
+
+.header-search svg {
+
+    position: absolute;
+
+    left: 14px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 18px;
+
+    height: 18px;
+
+    color: rgba(255, 255, 255, 0.6);
+
+}
+
+
+
+.header-actions {
+
+    display: flex;
+
+    gap: 8px;
+
+}
+
+
+
+/* Buttons */
+
+.btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 10px 16px;
+
+    border: none;
+
+    border-radius: var(--radius-sm);
+
+    font-size: 0.875rem;
+
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+
+    white-space: nowrap;
+
+}
+
+
+
+.btn svg {
+
+    width: 16px;
+
+    height: 16px;
+
+}
+
+
+
+.btn-primary {
+
+    background: var(--accent-primary);
+
+    color: white;
+
+}
+
+
+
+.btn-primary:hover {
+
+    background: var(--accent-hover);
+
+    transform: translateY(-1px);
+
+}
+
+
+
+.btn-secondary {
+
+    background: var(--bg-secondary);
+
+    color: var(--text-primary);
+
+    border: 1px solid var(--border-color);
+
+}
+
+
+
+.btn-secondary:hover {
+
+    background: var(--bg-tertiary);
+
+}
+
+
+
+.btn-ghost {
+
+    background: rgba(255, 255, 255, 0.1);
+
+    color: white;
+
+}
+
+
+
+.btn-ghost:hover {
+
+    background: rgba(255, 255, 255, 0.2);
+
+}
+
+
+
+.btn-danger {
+
+    background: var(--danger);
+
+    color: white;
+
+}
+
+
+
+.btn-danger:hover {
+
+    background: #dc2626;
+
+}
+
+
+
+.btn-icon {
+
+    padding: 8px;
+
+    border-radius: var(--radius-sm);
+
+}
+
+
+
+/* Toolbar */
+
+.toolbar {
+
+    background: var(--bg-secondary);
+
+    border-bottom: 1px solid var(--border-color);
+
+    padding: 12px 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 16px;
+
+    flex-wrap: wrap;
+
+}
+
+
+
+.toolbar-group {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+
+.toolbar select {
+
+    padding: 8px 12px;
+
+    border: 1px solid var(--border-color);
+
+    border-radius: var(--radius-sm);
+
+    background: var(--bg-secondary);
+
+    font-size: 0.875rem;
+
+    cursor: pointer;
+
+}
+
+
+
+.employee-count {
+
+    font-size: 0.875rem;
+
+    color: var(--text-secondary);
+
+    background: var(--bg-tertiary);
+
+    padding: 6px 12px;
+
+    border-radius: var(--radius-sm);
+
+}
+
+
+
+.zoom-level {
+
+    font-size: 0.875rem;
+
+    color: var(--text-primary);
+
+    font-weight: 500;
+
+    min-width: 50px;
+
+    text-align: center;
+
+}
+
+
+
+/* Main Canvas */
+
+.main-container {
+
+    display: flex;
+
+    min-height: calc(100vh - 130px);
+
+}
+
+
+
+.chart-canvas {
+
+    flex: 1;
+
+    padding: 40px;
+
+    overflow: auto;
+
+    position: relative;
+
+    display: flex;
+
+    justify-content: center;
+
+}
+
+
+
+.chart-wrapper {
+
+    display: inline-block;
+
+    transform-origin: top center;
+
+}
+
+
+
+/* Tree Structure */
+
+.tree {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    padding-bottom: 40px;
+
+}
+
+
+
+.tree-node {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    position: relative;
+
+}
+
+
+
+/* Vertical line down from parent card to children */
+
+.tree-node.has-children>.employee-card::after {
+
+    content: '';
+
+    position: absolute;
+
+    bottom: -26px;
+
+    left: 50%;
+
+    width: 2px;
+
+    height: 18px;
+
+    background: #94a3b8;
+
+    transform: translateX(-50%);
+
+}
+
+
+
+.tree-children {
+
+    display: flex;
+
+    gap: 24px;
+
+    padding-top: 24px;
+
+    position: relative;
+
+    margin-top: 24px;
+
+}
+
+
+
+/* Vertical line up from each child to connect to parent */
+
+.tree-children>.tree-node::before {
+
+    content: '';
+
+    position: absolute;
+
+    top: -24px;
+
+    left: 50%;
+
+    width: 2px;
+
+    height: 24px;
+
+    background: #94a3b8;
+
+    transform: translateX(-50%);
+
+}
+
+
+
+/* Horizontal connector segments on each child */
+
+/* First child - line goes right */
+
+.tree-children>.tree-node:not(:only-child):first-child::after {
+
+    content: '';
+
+    position: absolute;
+
+    top: -24px;
+
+    left: 50%;
+
+    width: calc(100% - 50% + 12px);
+
+    height: 2px;
+
+    background: #94a3b8;
+
+}
+
+
+
+/* Last child - line goes left */
+
+.tree-children>.tree-node:not(:only-child):last-child::after {
+
+    content: '';
+
+    position: absolute;
+
+    top: -24px;
+
+    right: 50%;
+
+    width: calc(100% - 50% + 12px);
+
+    height: 2px;
+
+    background: #94a3b8;
+
+}
+
+
+
+/* Middle children - line spans full width */
+
+.tree-children>.tree-node:not(:only-child):not(:first-child):not(:last-child)::after {
+
+    content: '';
+
+    position: absolute;
+
+    top: -24px;
+
+    left: -12px;
+
+    right: -12px;
+
+    height: 2px;
+
+    background: #94a3b8;
+
+}
+
+
+
+/* Employee Card */
+
+.employee-card {
+
+    background: var(--bg-secondary);
+
+    border-radius: var(--radius-md);
+
+    padding: 16px;
+
+    min-width: 200px;
+
+    max-width: 240px;
+
+    box-shadow: var(--shadow-md);
+
+    border: 2px solid transparent;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+
+    position: relative;
+
+}
+
+
+
+.employee-card:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow: var(--shadow-lg);
+
+}
+
+
+
+.employee-card.highlighted {
+
+    border-color: var(--accent-primary);
+
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+
+}
+
+
+
+.employee-card.filtered-out {
+
+    opacity: 0.3;
+
+}
+
+
+
+.card-header {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    margin-bottom: 12px;
+
+}
+
+
+
+.avatar {
+
+    width: 44px;
+
+    height: 44px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-weight: 600;
+
+    font-size: 0.875rem;
+
+    color: white;
+
+    flex-shrink: 0;
+
+}
+
+
+
+.card-info {
+
+    flex: 1;
+
+    min-width: 0;
+
+}
+
+
+
+.card-info h3 {
+
+    font-size: 0.9375rem;
+
+    font-weight: 600;
+
+    margin-bottom: 2px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
+
+
+.card-info p {
+
+    font-size: 0.8125rem;
+
+    color: var(--text-secondary);
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
+
+
+.card-footer {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding-top: 10px;
+
+    border-top: 1px solid var(--bg-tertiary);
+
+    gap: 8px;
+
+}
+
+
+
+.dept-badge {
+
+    font-size: 0.6875rem;
+
+    font-weight: 600;
+
+    padding: 3px 8px;
+
+    border-radius: 20px;
+
+    color: white;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+
+}
+
+
+
+.vacant-badge {
+
+    font-size: 0.6875rem;
+
+    font-weight: 600;
+
+    padding: 3px 8px;
+
+    border-radius: 20px;
+
+    background: var(--warning);
+
+    color: white;
+
+}
+
+
+
+.reports-count {
+
+    font-size: 0.75rem;
+
+    color: var(--text-muted);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+}
+
+
+
+.expand-btn {
+
+    position: absolute;
+
+    bottom: -12px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 24px;
+
+    height: 24px;
+
+    border-radius: 50%;
+
+    background: var(--bg-secondary);
+
+    border: 2px solid var(--border-color);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    color: var(--text-secondary);
+
+    transition: var(--transition);
+
+    z-index: 10;
+
+}
+
+
+
+.expand-btn:hover {
+
+    background: var(--accent-primary);
+
+    border-color: var(--accent-primary);
+
+    color: white;
+
+}
+
+
+
+/* Legend Sidebar */
+
+.legend-sidebar {
+
+    width: 220px;
+
+    background: var(--bg-secondary);
+
+    border-left: 1px solid var(--border-color);
+
+    padding: 20px;
+
+    flex-shrink: 0;
+
+}
+
+
+
+.legend-title {
+
+    font-size: 0.75rem;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+
+    color: var(--text-muted);
+
+    margin-bottom: 16px;
+
+}
+
+
+
+.legend-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 8px 0;
+
+    font-size: 0.875rem;
+
+}
+
+
+
+.legend-color {
+
+    width: 12px;
+
+    height: 12px;
+
+    border-radius: 3px;
+
+}
+
+
+
+.legend-add-btn {
+
+    margin-top: 16px;
+
+    width: 100%;
+
+    justify-content: center;
+
+}
+
+
+
+/* Modal */
+
+.modal-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.5);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 1000;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition: var(--transition);
+
+}
+
+
+
+.modal-overlay.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+}
+
+
+
+.modal {
+
+    background: var(--bg-secondary);
+
+    border-radius: var(--radius-lg);
+
+    width: 90%;
+
+    max-width: 480px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    box-shadow: var(--shadow-lg);
+
+    transform: scale(0.95);
+
+    transition: var(--transition);
+
+}
+
+
+
+.modal-overlay.active .modal {
+
+    transform: scale(1);
+
+}
+
+
+
+.modal-header {
+
+    padding: 20px 24px;
+
+    border-bottom: 1px solid var(--border-color);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
+
+
+
+.modal-header h2 {
+
+    font-size: 1.125rem;
+
+    font-weight: 600;
+
+}
+
+
+
+.modal-close {
+
+    width: 32px;
+
+    height: 32px;
+
+    border: none;
+
+    background: none;
+
+    cursor: pointer;
+
+    border-radius: var(--radius-sm);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: var(--text-secondary);
+
+    transition: var(--transition);
+
+}
+
+
+
+.modal-close:hover {
+
+    background: var(--bg-tertiary);
+
+}
+
+
+
+.modal-body {
+
+    padding: 24px;
+
+}
+
+
+
+.form-group {
+
+    margin-bottom: 16px;
+
+}
+
+
+
+.form-group label {
+
+    display: block;
+
+    font-size: 0.875rem;
+
+    font-weight: 500;
+
+    margin-bottom: 6px;
+
+}
+
+
+
+.form-group input,
+
+.form-group select {
+
+    width: 100%;
+
+    padding: 10px 14px;
+
+    border: 1px solid var(--border-color);
+
+    border-radius: var(--radius-sm);
+
+    font-size: 0.9375rem;
+
+    transition: var(--transition);
+
+}
+
+
+
+.form-group input:focus,
+
+.form-group select:focus {
+
+    outline: none;
+
+    border-color: var(--accent-primary);
+
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+
+}
+
+
+
+.form-row {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+
+}
+
+
+
+.form-checkbox {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+
+.form-checkbox input {
+
+    width: auto;
+
+}
+
+
+
+.modal-footer {
+
+    padding: 16px 24px;
+
+    border-top: 1px solid var(--border-color);
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 8px;
+
+}
+
+
+
+/* Department Management Styles */
+
+.dept-list-container {
+
+    max-height: 200px;
+
+    overflow-y: auto;
+
+    border: 1px solid var(--border-color);
+
+    border-radius: var(--radius-sm);
+
+    margin-bottom: 20px;
+
+}
+
+
+
+.dept-list {
+
+    list-style: none;
+
+}
+
+
+
+.dept-item {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 10px 15px;
+
+    border-bottom: 1px solid var(--border-color);
+
+}
+
+
+
+.dept-item:last-child {
+
+    border-bottom: none;
+
+}
+
+
+
+.dept-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+
+.dept-color-dot {
+
+    width: 16px;
+
+    height: 16px;
+
+    border-radius: 50%;
+
+    display: inline-block;
+
+}
+
+
+
+.dept-actions {
+
+    display: flex;
+
+    gap: 8px;
+
+}
+
+
+
+.btn-icon-small {
+
+    background: none;
+
+    border: none;
+
+    cursor: pointer;
+
+    font-size: 1.1rem;
+
+    padding: 2px 6px;
+
+    border-radius: 4px;
+
+}
+
+
+
+.btn-icon-small:hover {
+
+    background: var(--bg-primary);
+
+}
+
+
+
+.add-dept-form {
+
+    background: var(--bg-primary);
+
+    padding: 15px;
+
+    border-radius: var(--radius-md);
+
+}
+
+
+
+.add-dept-form h3 {
+
+    margin-bottom: 15px;
+
+    font-size: 1rem;
+
+    color: var(--text-primary);
+
+}
+
+
+
+.form-row {
+
+    display: flex;
+
+    gap: 15px;
+
+}
+
+
+
+.form-group.half {
+
+    flex: 1;
+
+}
+
+
+
+.help-text {
+
+    font-size: 0.75rem;
+
+    color: var(--text-secondary);
+
+    display: block;
+
+    margin-top: 4px;
+
+}
+
+
+
+/* Context Menu */
+
+.context-menu {
+
+    position: fixed;
+
+    background: var(--bg-secondary);
+
+    border-radius: var(--radius-md);
+
+    box-shadow: var(--shadow-lg);
+
+    min-width: 180px;
+
+    z-index: 1001;
+
+    display: none;
+
+    overflow: hidden;
+
+    border: 1px solid var(--border-color);
+
+}
+
+
+
+.context-menu.active {
+
+    display: block;
+
+}
+
+
+
+.context-menu-item {
+
+    padding: 10px 16px;
+
+    font-size: 0.875rem;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    transition: var(--transition);
+
+}
+
+
+
+.context-menu-item:hover {
+
+    background: var(--bg-tertiary);
+
+}
+
+
+
+.context-menu-item.danger {
+
+    color: var(--danger);
+
+}
+
+
+
+.context-menu-divider {
+
+    height: 1px;
+
+    background: var(--border-color);
+
+    margin: 4px 0;
+
+}
+
+
+
+/* Empty State */
+
+.empty-state {
+
+    text-align: center;
+
+    padding: 60px 20px;
+
+}
+
+
+
+.empty-state svg {
+
+    width: 80px;
+
+    height: 80px;
+
+    color: var(--text-muted);
+
+    margin-bottom: 20px;
+
+}
+
+
+
+.empty-state h2 {
+
+    font-size: 1.25rem;
+
+    margin-bottom: 8px;
+
+}
+
+
+
+.empty-state p {
+
+    color: var(--text-secondary);
+
+    margin-bottom: 24px;
+
+}
+
+
+
+/* Toast Notifications */
+
+.toast-container {
+
+    position: fixed;
+
+    bottom: 24px;
+
+    right: 24px;
+
+    z-index: 1002;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+}
+
+
+
+.toast {
+
+    background: var(--text-primary);
+
+    color: white;
+
+    padding: 12px 20px;
+
+    border-radius: var(--radius-sm);
+
+    font-size: 0.875rem;
+
+    box-shadow: var(--shadow-lg);
+
+    animation: slideIn 0.3s ease;
+
+}
+
+
+
+@keyframes slideIn {
+
+    from {
+
+        transform: translateX(100%);
+
+        opacity: 0;
+
+    }
+
+
+
+    to {
+
+        transform: translateX(0);
+
+        opacity: 1;
+
+    }
+
+}
+
+
+
+/* Print Styles */
+
+@media print {
+
+
+
+    /* Default to A4 landscape - JS will override orientation dynamically */
+
+    @page {
+
+        size: A4 landscape;
+
+        margin: 10mm;
+
+    }
+
+
+
+    * {
+
+        -webkit-print-color-adjust: exact !important;
+
+        print-color-adjust: exact !important;
+
+    }
+
+
+
+    .app-header,
+
+    .toolbar,
+
+    .legend-sidebar,
+
+    .expand-btn,
+
+    .context-menu,
+
+    .modal-overlay,
+
+    .toast-container,
+
+    .zoom-level {
+
+        display: none !important;
+
+    }
+
+
+
+    body {
+
+        background: white !important;
+
+        overflow: visible !important;
+
+        margin: 0 !important;
+
+        padding: 0 !important;
+
+    }
+
+
+
+    .main-container {
+
+        display: block;
+
+        min-height: auto;
+
+    }
+
+
+
+    .chart-canvas {
+
+        padding: 0 !important;
+
+        overflow: visible !important;
+
+        height: auto !important;
+
+        width: 100% !important;
+
+    }
+
+
+
+    .chart-wrapper {
+
+        transform: none !important;
+
+        width: 100% !important;
+
+        min-width: 0 !important;
+
+        display: flex !important;
+
+        justify-content: center !important;
+
+    }
+
+
+
+    .tree {
+
+        transform: scale(var(--print-scale, 0.5));
+
+        transform-origin: top center;
+
+        width: max-content;
+
+        margin: 0 auto;
+
+    }
+
+
+
+    .employee-card {
+
+        box-shadow: none !important;
+
+        border: 1px solid #ccc !important;
+
+        page-break-inside: avoid;
+
+        min-width: 150px !important;
+
+        padding: 10px !important;
+
+    }
+
+
+
+    .tree-node::before,
+
+    .tree-children::before,
+
+    .tree-node.has-children>.employee-card::after {
+
+        background: #666 !important;
+
+    }
+
+
+
+    .avatar {
+
+        -webkit-print-color-adjust: exact !important;
+
+        print-color-adjust: exact !important;
+
+    }
+
+
+
+    .dept-badge {
+
+        -webkit-print-color-adjust: exact !important;
+
+        print-color-adjust: exact !important;
+
+    }
+
+}
+
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
+    #mobileMenuBtn {
+
+        display: flex !important;
+
+    }
+
+
+
+    .app-header {
+
+        flex-wrap: wrap;
+
+        padding: 12px 16px;
+
+    }
+
+
+
+    .header-search {
+
+        max-width: 100%;
+
+        order: 3;
+
+        width: 100%;
+
+        margin-top: 12px;
+
+    }
+
+
+
+    .toolbar {
+
+        padding: 10px 16px;
+
+    }
+
+
+
+    .legend-sidebar {
+
+        position: fixed;
+
+        right: -220px;
+
+        top: 0;
+
+        height: 100vh;
+
+        z-index: 99;
+
+        transition: var(--transition);
+
+    }
+
+
+
+    .legend-sidebar.active {
+
+        right: 0;
+
+    }
+
+
+
+    .chart-canvas {
+
+        padding: 20px;
+
+    }
+
+
+
+    .employee-card {
+
+        min-width: 160px;
+
+        padding: 12px;
+
+    }
+
+}
+
+
+
+/* Drag and Drop Visuals */
+
+.employee-card.dragging {
+
+    opacity: 0.5;
+
+    border: 2px dashed #94a3b8 !important;
+
+}
+
+
+
+.employee-card.drag-over {
+
+    border: 2px dashed #3b82f6 !important;
+
+    background-color: #eff6ff !important;
+
+    transform: scale(1.05);
+
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+
+    z-index: 10;
+
+    transition: all 0.2s ease;
+
+}
+
+
+
+/* Prevent flickering by ignoring children during drag */
+
+body.dragging-active .employee-card * {
+
+    pointer-events: none;
+
+}
+</style>
+
+    <!-- PDF Export Libraries -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- Word Export Library -->
+
+    <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+
+    <!-- Mobile Drag and Drop Polyfill -->
+
+    <script src="https://bernardo-castilho.github.io/DragDropTouch/DragDropTouch.js"></script>
+
+</head>
+
+
+
+<body>
+
+    <!-- Header -->
+
+    <header class="app-header">
+
+        <button class="btn btn-ghost btn-icon" id="mobileMenuBtn" style="display:none; margin-right:8px;">
+
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+
+            </svg>
+
+        </button>
+
+        <div class="app-logo">
+
+            <svg viewBox="0 0 32 32" fill="none">
+
+                <rect x="4" y="2" width="24" height="8" rx="2" fill="#3b82f6" />
+
+                <rect x="2" y="14" width="12" height="6" rx="1" fill="#8b5cf6" />
+
+                <rect x="18" y="14" width="12" height="6" rx="1" fill="#ec4899" />
+
+                <rect x="2" y="24" width="8" height="6" rx="1" fill="#10b981" />
+
+                <rect x="12" y="24" width="8" height="6" rx="1" fill="#f59e0b" />
+
+                <rect x="22" y="24" width="8" height="6" rx="1" fill="#06b6d4" />
+
+                <path d="M16 10V14M8 14V20M24 14V20M6 20V24M16 20V24M26 20V24" stroke="white" stroke-width="1.5" />
+
+            </svg>
+
+            <h1>OrgChart Pro</h1>
+
+        </div>
+
+
+
+        <div class="header-search">
+
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                <circle cx="11" cy="11" r="8" />
+
+                <path d="M21 21l-4.35-4.35" />
+
+            </svg>
+
+            <input type="text" id="searchInput" placeholder="Search employees by name or title...">
+
+        </div>
+
+
+
+        <div class="header-actions">
+
+            <button class="btn btn-ghost" id="printBtn" title="Print">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                    <polyline points="6 9 6 2 18 2 18 9" />
+
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+
+                    <rect x="6" y="14" width="12" height="8" />
+
+                </svg>
+
+                Print
+
+            </button>
+
+            <button class="btn btn-ghost" id="exportPdfBtn" title="Export PDF">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+
+                    <polyline points="14 2 14 8 20 8" />
+
+                    <line x1="12" y1="18" x2="12" y2="12" />
+
+                    <line x1="9" y1="15" x2="15" y2="15" />
+
+                </svg>
+
+                PDF
+
+            </button>
+
+            <button class="btn btn-ghost" id="exportDocBtn" title="Export Word">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+
+                    <polyline points="14 2 14 8 20 8" />
+
+                    <line x1="8" y1="13" x2="16" y2="13" />
+
+                    <line x1="8" y1="17" x2="16" y2="17" />
+
+                </svg>
+
+                Doc
+
+            </button>
+
+            <button class="btn btn-ghost" id="exportHtmlBtn" title="Export HTML (Word compatible)">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                    <polyline points="16 18 22 12 16 6" />
+
+                    <polyline points="8 6 2 12 8 18" />
+
+                </svg>
+
+                HTML
+
+            </button>
+
+            <button class="btn btn-ghost" id="exportJsonBtn" title="Export JSON">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+
+                    <polyline points="7 10 12 15 17 10" />
+
+                    <line x1="12" y1="15" x2="12" y2="3" />
+
+                </svg>
+
+                Export
+
+            </button>
+
+            <button class="btn btn-ghost" id="importJsonBtn" title="Import JSON">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+
+                    <polyline points="17 8 12 3 7 8" />
+
+                    <line x1="12" y1="3" x2="12" y2="15" />
+
+                </svg>
+
+                Import
+
+            </button>
+
+            <input type="file" id="importInput" accept=".json" hidden>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- Toolbar -->
+
+    <div class="toolbar">
+
+        <div class="toolbar-group">
+
+            <button class="btn btn-primary" id="addEmployeeBtn">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                    <line x1="12" y1="5" x2="12" y2="19" />
+
+                    <line x1="5" y1="12" x2="19" y2="12" />
+
+                </svg>
+
+                Add Employee
+
+            </button>
+
+            <button class="btn btn-secondary" id="loadSampleBtn">Load Sample</button>
+
+            <button class="btn btn-secondary" id="newChartBtn">New Chart</button>
+
+            <button class="btn btn-secondary" id="manageDeptsBtn">
+
+                <span class="icon">⚙️</span> Manage Depts
+
+            </button>
+
+        </div>
+
+
+
+        <div class="toolbar-group">
+
+            <select id="deptFilter">
+
+                <option value="">All Departments</option>
+
+            </select>
+
+            <button class="btn btn-secondary btn-icon" id="expandAllBtn" title="Expand All">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                    <polyline points="15 3 21 3 21 9" />
+
+                    <polyline points="9 21 3 21 3 15" />
+
+                    <line x1="21" y1="3" x2="14" y2="10" />
+
+                    <line x1="3" y1="21" x2="10" y2="14" />
+
+                </svg>
+
+            </button>
+
+            <button class="btn btn-secondary btn-icon" id="collapseAllBtn" title="Collapse All">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                    <polyline points="4 14 10 14 10 20" />
+
+                    <polyline points="20 10 14 10 14 4" />
+
+                    <line x1="14" y1="10" x2="21" y2="3" />
+
+                    <line x1="3" y1="21" x2="10" y2="14" />
+
+                </svg>
+
+            </button>
+
+            <button class="btn btn-secondary btn-icon" id="zoomOutBtn" title="Zoom Out">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                    <circle cx="11" cy="11" r="8" />
+
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+
+                    <line x1="8" y1="11" x2="14" y2="11" />
+
+                </svg>
+
+            </button>
+
+            <span class="zoom-level" id="zoomLevel">100%</span>
+
+            <button class="btn btn-secondary btn-icon" id="zoomInBtn" title="Zoom In">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                    <circle cx="11" cy="11" r="8" />
+
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+
+                    <line x1="11" y1="8" x2="11" y2="14" />
+
+                    <line x1="8" y1="11" x2="14" y2="11" />
+
+                </svg>
+
+            </button>
+
+            <button class="btn btn-secondary btn-icon" id="fitScreenBtn" title="Fit to Screen">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                    <path
+
+                        d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+
+                </svg>
+
+            </button>
+
+            <span class="employee-count" id="employeeCount">0 employees</span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Main Content -->
+
+    <div class="main-container">
+
+        <div class="chart-canvas">
+
+            <div class="chart-wrapper" id="chartContainer">
+
+                <!-- Chart renders here -->
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Legend Sidebar -->
+
+        <aside class="legend-sidebar">
+
+            <h3 class="legend-title">Departments</h3>
+
+            <div id="legendItems"></div>
+
+            <button class="btn btn-secondary legend-add-btn" id="addDeptBtn">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                    <line x1="12" y1="5" x2="12" y2="19" />
+
+                    <line x1="5" y1="12" x2="19" y2="12" />
+
+                </svg>
+
+                Add Department
+
+            </button>
+
+        </aside>
+
+    </div>
+
+
+
+    <!-- Context Menu -->
+
+    <div class="context-menu" id="contextMenu">
+
+        <div class="context-menu-item" onclick="app.handleContextAction('addSub')">
+
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+
+                <circle cx="8.5" cy="7" r="4" />
+
+                <line x1="20" y1="8" x2="20" y2="14" />
+
+                <line x1="23" y1="11" x2="17" y2="11" />
+
+            </svg>
+
+            Add Subordinate
+
+        </div>
+
+        <div class="context-menu-item" onclick="app.handleContextAction('edit')">
+
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+
+            </svg>
+
+            Edit Employee
+
+        </div>
+
+        <div class="context-menu-divider"></div>
+
+        <div class="context-menu-item danger" onclick="app.handleContextAction('deleteKeepSubs')">
+
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+
+                <polyline points="3 6 5 6 21 6" />
+
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+
+                <path d="M12 11v6" />
+
+                <path d="M9 14l3-3 3 3" />
+
+            </svg>
+
+            Delete (Keep Subordinates)
+
+        </div>
+
+        <div class="context-menu-item danger" onclick="app.handleContextAction('delete')">
+
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+
+                <polyline points="3 6 5 6 21 6" />
+
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+
+            </svg>
+
+            Delete (With Subordinates)
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Employee Modal -->
+
+    <div class="modal-overlay" id="employeeModal">
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <h2 id="modalTitle">Add Employee</h2>
+
+                <button class="close-modal" onclick="app.closeModal()">×</button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <form id="employeeForm">
+
+                    <input type="hidden" id="empId">
+
+                    <input type="hidden" id="parentId">
+
+
+
+                    <div class="form-group">
+
+                        <label for="empName">Full Name *</label>
+
+                        <input type="text" id="empName" required placeholder="John Smith">
+
+                    </div>
+
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="empTitle">Job Title *</label>
+
+                            <input type="text" id="empTitle" required placeholder="Software Engineer">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="empDept">Department *</label>
+
+                            <select id="empDept" required>
+
+                                <!-- Departments populated dynamically -->
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="empEmail">Email</label>
+
+                            <input type="email" id="empEmail" placeholder="john@company.com">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="empPhone">Phone</label>
+
+                            <input type="tel" id="empPhone" placeholder="+91 98765 43210">
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-group form-checkbox">
+
+                        <input type="checkbox" id="empVacant">
+
+                        <label for="empVacant">Mark as Vacant Position (for hiring)</label>
+
+                    </div>
+
+                    <div class="modal-actions">
+
+                        <button type="button" class="btn btn-secondary" onclick="app.closeModal()">Cancel</button>
+
+                        <button type="submit" class="btn btn-primary">Save Employee</button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Department Modal -->
+
+    <div class="modal-overlay" id="deptModal">
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <h2>Manage Departments</h2>
+
+                <button class="close-modal" onclick="app.closeDeptModal()">×</button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="dept-list-container">
+
+                    <ul id="deptList" class="dept-list">
+
+                        <!-- Departments populated here -->
+
+                    </ul>
+
+                </div>
+
+
+
+                <div class="add-dept-form">
+
+                    <h3>Add / Edit Department</h3>
+
+                    <form id="deptForm">
+
+                        <input type="hidden" id="editDeptKey">
+
+                        <div class="form-row">
+
+                            <div class="form-group half">
+
+                                <label for="deptName">Name</label>
+
+                                <input type="text" id="deptName" required placeholder="e.g. Innovation">
+
+                            </div>
+
+                            <div class="form-group half">
+
+                                <label for="deptColor">Color</label>
+
+                                <input type="color" id="deptColor" value="#3b82f6">
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="deptIdInput">ID (Key)</label>
+
+                            <input type="text" id="deptIdInput" required placeholder="e.g. innovation"
+
+                                pattern="[a-z0-9_]+" title="Lowercase letters, numbers, and underscores only">
+
+                            <small class="help-text">Unique key (cannot change once created)</small>
+
+                        </div>
+
+                        <div class="modal-actions">
+
+                            <button type="button" class="btn btn-secondary" onclick="app.resetDeptForm()">Reset</button>
+
+                            <button type="submit" class="btn btn-primary" id="saveDeptBtn">Add Department</button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Delete Confirmation Modal -->
+
+    <div class="modal-overlay" id="deleteModal">
+
+        <div class="modal" style="max-width:400px">
+
+            <div class="modal-header">
+
+                <h2>Confirm Delete</h2>
+
+                <button class="modal-close">&times;</button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p>Are you sure you want to delete this employee? This action cannot be undone.</p>
+
+                <p style="margin-top:12px;font-size:0.875rem;color:var(--text-secondary)">Note: If this employee has
+
+                    subordinates, they will also be removed.</p>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Toast Container -->
+
+    <div class="toast-container" id="toastContainer"></div>
+
+
+
+    <script>
+// data.js - Department configuration, sample data, and storage management
+
+
+
+const DEPARTMENTS = {
+
+    executive: { name: 'Executive', color: '#7c3aed' },
+
+    hr: { name: 'HR', color: '#ec4899' },
+
+    finance: { name: 'Finance', color: '#10b981' },
+
+    sales: { name: 'Sales', color: '#f59e0b' },
+
+    marketing: { name: 'Marketing', color: '#06b6d4' },
+
+    operations: { name: 'Operations', color: '#6366f1' },
+
+    engineering: { name: 'Engineering', color: '#3b82f6' },
+
+    it: { name: 'IT', color: '#8b5cf6' },
+
+    legal: { name: 'Legal', color: '#64748b' },
+
+    support: { name: 'Customer Support', color: '#14b8a6' }
+
+};
+
+
+
+function generateId() {
+
+    return 'emp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+
+}
+
+
+
+const sampleOrgData = {
+
+    id: generateId(),
+
+    name: 'Sarah Johnson',
+
+    title: 'Chief Executive Officer',
+
+    department: 'executive',
+
+    email: 'sarah.johnson@company.com',
+
+    phone: '+91 98765 43210',
+
+    isVacant: false,
+
+    isExpanded: true,
+
+    children: [
+
+        {
+
+            id: generateId(),
+
+            name: 'Michael Chen',
+
+            title: 'Chief Technology Officer',
+
+            department: 'engineering',
+
+            email: 'michael.chen@company.com',
+
+            isVacant: false,
+
+            isExpanded: true,
+
+            children: [
+
+                {
+
+                    id: generateId(),
+
+                    name: 'Priya Sharma',
+
+                    title: 'Engineering Manager',
+
+                    department: 'engineering',
+
+                    isVacant: false,
+
+                    isExpanded: true,
+
+                    children: [
+
+                        { id: generateId(), name: 'Alex Kumar', title: 'Senior Developer', department: 'engineering', isVacant: false, isExpanded: true, children: [] },
+
+                        { id: generateId(), name: 'Emma Wilson', title: 'Developer', department: 'engineering', isVacant: false, isExpanded: true, children: [] },
+
+                        { id: generateId(), name: '', title: 'Junior Developer', department: 'engineering', isVacant: true, isExpanded: true, children: [] }
+
+                    ]
+
+                },
+
+                {
+
+                    id: generateId(),
+
+                    name: 'David Park',
+
+                    title: 'IT Manager',
+
+                    department: 'it',
+
+                    isVacant: false,
+
+                    isExpanded: true,
+
+                    children: [
+
+                        { id: generateId(), name: 'Lisa Brown', title: 'System Administrator', department: 'it', isVacant: false, isExpanded: true, children: [] }
+
+                    ]
+
+                }
+
+            ]
+
+        },
+
+        {
+
+            id: generateId(),
+
+            name: 'Jennifer Lee',
+
+            title: 'Chief Financial Officer',
+
+            department: 'finance',
+
+            email: 'jennifer.lee@company.com',
+
+            isVacant: false,
+
+            isExpanded: true,
+
+            children: [
+
+                { id: generateId(), name: 'Robert Taylor', title: 'Finance Manager', department: 'finance', isVacant: false, isExpanded: true, children: [] },
+
+                { id: generateId(), name: 'Maria Garcia', title: 'Accountant', department: 'finance', isVacant: false, isExpanded: true, children: [] }
+
+            ]
+
+        },
+
+        {
+
+            id: generateId(),
+
+            name: 'James Williams',
+
+            title: 'VP of Sales',
+
+            department: 'sales',
+
+            email: 'james.williams@company.com',
+
+            isVacant: false,
+
+            isExpanded: true,
+
+            children: [
+
+                {
+
+                    id: generateId(), name: 'Amanda Foster', title: 'Sales Manager', department: 'sales', isVacant: false, isExpanded: true, children: [
+
+                        { id: generateId(), name: 'Chris Anderson', title: 'Sales Representative', department: 'sales', isVacant: false, isExpanded: true, children: [] },
+
+                        { id: generateId(), name: 'Nicole White', title: 'Sales Representative', department: 'sales', isVacant: false, isExpanded: true, children: [] }
+
+                    ]
+
+                }
+
+            ]
+
+        },
+
+        {
+
+            id: generateId(),
+
+            name: 'Emily Davis',
+
+            title: 'HR Director',
+
+            department: 'hr',
+
+            email: 'emily.davis@company.com',
+
+            isVacant: false,
+
+            isExpanded: true,
+
+            children: [
+
+                { id: generateId(), name: 'Kevin Martinez', title: 'HR Manager', department: 'hr', isVacant: false, isExpanded: true, children: [] },
+
+                { id: generateId(), name: '', title: 'Recruiter', department: 'hr', isVacant: true, isExpanded: true, children: [] }
+
+            ]
+
+        }
+
+    ]
+
+};
+
+
+
+const StorageManager = {
+
+    KEYS: {
+
+        ORG_DATA: 'orgChart_data',
+
+        DEPARTMENTS: 'orgChart_departments'
+
+    },
+
+
+
+    save(data) {
+
+        try {
+
+            localStorage.setItem(this.KEYS.ORG_DATA, JSON.stringify(data));
+
+            return true;
+
+        } catch (e) {
+
+            console.error('Failed to save:', e);
+
+            return false;
+
+        }
+
+    },
+
+
+
+    load() {
+
+        try {
+
+            const data = localStorage.getItem(this.KEYS.ORG_DATA);
+
+            return data ? JSON.parse(data) : null;
+
+        } catch (e) {
+
+            console.error('Failed to load:', e);
+
+            return null;
+
+        }
+
+    },
+
+
+
+    saveDepartments(departments) {
+
+        try {
+
+            localStorage.setItem(this.KEYS.DEPARTMENTS, JSON.stringify(departments));
+
+            return true;
+
+        } catch (e) {
+
+            return false;
+
+        }
+
+    },
+
+
+
+    loadDepartments() {
+
+        try {
+
+            const data = localStorage.getItem(this.KEYS.DEPARTMENTS);
+
+            return data ? JSON.parse(data) : null;
+
+        } catch (e) {
+
+            return null;
+
+        }
+
+    },
+
+
+
+    clear() {
+
+        localStorage.removeItem(this.KEYS.ORG_DATA);
+
+    }
+
+};
+
+
+
+function countEmployees(node) {
+
+    if (!node) return { total: 0, byDept: {} };
+
+    let total = 1;
+
+    let byDept = {};
+
+    byDept[node.department] = (byDept[node.department] || 0) + 1;
+
+
+
+    if (node.children) {
+
+        for (const child of node.children) {
+
+            const childCounts = countEmployees(child);
+
+            total += childCounts.total;
+
+            for (const dept in childCounts.byDept) {
+
+                byDept[dept] = (byDept[dept] || 0) + childCounts.byDept[dept];
+
+            }
+
+        }
+
+    }
+
+    return { total, byDept };
+
+}
+
+
+
+function findNodeById(root, id) {
+
+    if (!root) return null;
+
+    if (root.id === id) return root;
+
+    if (root.children) {
+
+        for (const child of root.children) {
+
+            const found = findNodeById(child, id);
+
+            if (found) return found;
+
+        }
+
+    }
+
+    return null;
+
+}
+
+
+
+function findParentNode(root, childId) {
+
+    if (!root || !root.children) return null;
+
+    for (const child of root.children) {
+
+        if (child.id === childId) return root;
+
+        const found = findParentNode(child, childId);
+
+        if (found) return found;
+
+    }
+
+    return null;
+
+}
+
+
+
+function deleteNodeById(root, id) {
+
+    if (!root) return false;
+
+    if (root.children) {
+
+        const idx = root.children.findIndex(c => c.id === id);
+
+        if (idx !== -1) {
+
+            root.children.splice(idx, 1);
+
+            return true;
+
+        }
+
+        for (const child of root.children) {
+
+            if (deleteNodeById(child, id)) return true;
+
+        }
+
+    }
+
+    return false;
+
+}
+
+
+
+// Calculate tree depth from data structure (accounts for collapsed nodes)
+
+function getTreeDepth(node) {
+
+    if (!node) return 0;
+
+    // If collapsed or no children, this node is a leaf at depth 1
+
+    if (!node.isExpanded || !node.children || node.children.length === 0) return 1;
+
+    let maxChildDepth = 0;
+
+    for (const child of node.children) {
+
+        maxChildDepth = Math.max(maxChildDepth, getTreeDepth(child));
+
+    }
+
+    return 1 + maxChildDepth;
+
+}
+
+
+
+// Calculate max width (most nodes at any single level) from data structure
+
+function getTreeMaxWidth(node) {
+
+    if (!node) return 0;
+
+
+
+    // BFS to count nodes at each level
+
+    const levelCounts = [];
+
+    const queue = [{ node, level: 0 }];
+
+
+
+    while (queue.length > 0) {
+
+        const { node: current, level } = queue.shift();
+
+
+
+        // Only count expanded/visible nodes
+
+        levelCounts[level] = (levelCounts[level] || 0) + 1;
+
+
+
+        if (current.isExpanded && current.children) {
+
+            for (const child of current.children) {
+
+                queue.push({ node: child, level: level + 1 });
+
+            }
+
+        }
+
+    }
+
+
+
+    return Math.max(...levelCounts, 1);
+
+}
+
+
+</script>
+
+    <script>
+// app.js - Main application controller
+
+
+
+class OrgChartApp {
+
+    constructor() {
+
+        this.orgData = null;
+
+        this.departments = { ...DEPARTMENTS };
+
+        this.selectedNode = null;
+
+        this.searchQuery = '';
+
+        this.filterDept = '';
+
+        this.currentScale = 1;
+
+        this.init();
+
+    }
+
+
+
+    init() {
+
+        this.loadData();
+
+        this.bindEvents();
+
+        this.render();
+
+        this.updateStats();
+
+    }
+
+
+
+    loadData() {
+
+        const savedDepts = StorageManager.loadDepartments();
+
+        // If we have saved departments, use them strictly (don't merge with defaults)
+
+        // This ensures that if a user deletes a default department, it STAYS deleted.
+
+        if (savedDepts) {
+
+            this.departments = savedDepts;
+
+        } else {
+
+            this.departments = { ...DEPARTMENTS };
+
+        }
+
+
+
+        const savedData = StorageManager.load();
+
+        this.orgData = savedData || null;
+
+        this.renderLegend();
+
+    }
+
+
+
+    save() {
+
+        if (this.orgData) StorageManager.save(this.orgData);
+
+        this.showToast('Changes saved');
+
+    }
+
+
+
+    bindEvents() {
+
+        // Search
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+
+            this.searchQuery = e.target.value.toLowerCase();
+
+            this.render();
+
+        });
+
+
+
+        // Filter
+
+        document.getElementById('deptFilter').addEventListener('change', (e) => {
+
+            this.filterDept = e.target.value;
+
+            this.render();
+
+        });
+
+
+
+        // Toolbar buttons
+
+        document.getElementById('expandAllBtn').addEventListener('click', () => this.setAllExpanded(true));
+
+        document.getElementById('collapseAllBtn').addEventListener('click', () => this.setAllExpanded(false));
+
+        document.getElementById('fitScreenBtn').addEventListener('click', () => this.fitToScreen());
+
+        document.getElementById('addEmployeeBtn').addEventListener('click', () => this.openModal('add'));
+
+        document.getElementById('newChartBtn').addEventListener('click', () => this.confirmNewChart());
+
+        document.getElementById('loadSampleBtn').addEventListener('click', () => this.loadSample());
+
+        document.getElementById('exportJsonBtn').addEventListener('click', () => this.exportJSON());
+
+        document.getElementById('importJsonBtn').addEventListener('click', () => document.getElementById('importInput').click());
+
+        document.getElementById('saveDeptBtn').addEventListener('click', (e) => this.saveDepartment(e));
+
+        document.getElementById('manageDeptsBtn').addEventListener('click', () => this.openDeptModal());
+
+        document.getElementById('importInput').addEventListener('change', (e) => this.importJSON(e));
+
+        document.getElementById('printBtn').addEventListener('click', () => this.printChart());
+
+        document.getElementById('exportPdfBtn').addEventListener('click', () => this.exportToPDF());
+
+        document.getElementById('exportDocBtn').addEventListener('click', () => this.exportToWord());
+
+        document.getElementById('exportHtmlBtn').addEventListener('click', () => this.exportToHTML());
+
+
+
+        // Zoom controls
+
+        document.getElementById('zoomInBtn').addEventListener('click', () => this.zoomIn());
+
+        document.getElementById('zoomOutBtn').addEventListener('click', () => this.zoomOut());
+
+
+
+        // Modal events
+
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+
+            modal.addEventListener('click', (e) => {
+
+                if (e.target === modal) this.closeModals();
+
+            });
+
+        });
+
+
+
+        document.querySelectorAll('.modal-close').forEach(btn => {
+
+            btn.addEventListener('click', () => this.closeModals());
+
+        });
+
+
+
+        // Form submissions
+
+        document.getElementById('employeeForm').addEventListener('submit', (e) => {
+
+            e.preventDefault();
+
+            this.saveEmployee();
+
+        });
+
+
+
+        document.getElementById('deptForm').addEventListener('submit', (e) => {
+
+            e.preventDefault();
+
+            this.saveDepartment();
+
+        });
+
+
+
+        // Context menu
+
+        document.addEventListener('click', () => this.hideContextMenu());
+
+        document.addEventListener('contextmenu', (e) => {
+
+            const card = e.target.closest('.employee-card');
+
+            if (card) {
+
+                e.preventDefault();
+
+                this.showContextMenu(e, card.dataset.id);
+
+            }
+
+        });
+
+
+
+        // Keyboard shortcuts
+
+        document.addEventListener('keydown', (e) => {
+
+            if (e.key === 'Escape') this.closeModals();
+
+            if (e.ctrlKey && e.key === 'f') {
+
+                e.preventDefault();
+
+                document.getElementById('searchInput').focus();
+
+            }
+
+        });
+
+
+
+        // Legend add department
+
+        document.getElementById('addDeptBtn').addEventListener('click', () => this.openDeptModal());
+
+
+
+        // Confirm delete
+
+        document.getElementById('confirmDeleteBtn').addEventListener('click', () => this.deleteEmployee());
+
+
+
+        // Mobile Menu
+
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+
+        if (mobileMenuBtn) {
+
+            mobileMenuBtn.addEventListener('click', () => {
+
+                document.querySelector('.legend-sidebar').classList.toggle('active');
+
+            });
+
+        }
+
+
+
+        // Touch Zoom (Pinch)
+
+        const canvas = document.querySelector('.chart-canvas');
+
+        if (canvas) {
+
+            canvas.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: false });
+
+            canvas.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
+
+        }
+
+    }
+
+
+
+    render() {
+
+        const container = document.getElementById('chartContainer');
+
+
+
+        if (!this.orgData) {
+
+            container.innerHTML = this.renderEmptyState();
+
+            return;
+
+        }
+
+
+
+        container.innerHTML = `<div class="tree">${this.renderNode(this.orgData)}</div>`;
+
+        this.updateStats();
+
+    }
+
+
+
+    renderEmptyState() {
+
+        return `
+
+            <div class="empty-state">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+
+                    <circle cx="9" cy="7" r="4"/>
+
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+
+                </svg>
+
+                <h2>No Organization Chart</h2>
+
+                <p>Start building your org chart or load a sample</p>
+
+                <div style="display:flex;gap:12px;justify-content:center">
+
+                    <button class="btn btn-primary" onclick="app.openModal('add')">Add First Employee</button>
+
+                    <button class="btn btn-secondary" onclick="app.loadSample()">Load Sample</button>
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+
+    renderNode(node) {
+
+        const dept = this.departments[node.department] || { name: node.department, color: '#64748b' };
+
+        const initials = node.isVacant ? '?' : this.getInitials(node.name);
+
+        const isHighlighted = this.searchQuery && (
+
+            node.name.toLowerCase().includes(this.searchQuery) ||
+
+            node.title.toLowerCase().includes(this.searchQuery)
+
+        );
+
+        const isFiltered = this.filterDept && node.department !== this.filterDept;
+
+        const childCount = node.children ? node.children.length : 0;
+
+
+
+        let childrenHtml = '';
+
+        if (node.children && node.children.length > 0 && node.isExpanded) {
+
+            childrenHtml = `<div class="tree-children">${node.children.map(c => this.renderNode(c)).join('')}</div>`;
+
+        }
+
+
+
+        return `
+
+            <div class="tree-node ${childCount > 0 && node.isExpanded ? 'has-children' : ''}">
+
+                <div class="employee-card ${isHighlighted ? 'highlighted' : ''} ${isFiltered ? 'filtered-out' : ''}" 
+
+                     data-id="${node.id}" 
+
+                     draggable="true"
+
+                     ondragstart="app.handleDragStart(event, '${node.id}')"
+
+                     ondragover="app.handleDragOver(event)"
+
+                     ondragenter="app.handleDragEnter(event)"
+
+                     ondragleave="app.handleDragLeave(event)"
+
+                     ondragend="app.handleDragEnd(event)"
+
+                     ondrop="app.handleDrop(event, '${node.id}')"
+
+                     onclick="app.openModal('edit', '${node.id}')">
+
+                    <div class="card-header">
+
+                        <div class="avatar" style="background:${dept.color}">${initials}</div>
+
+                        <div class="card-info">
+
+                            <h3>${node.isVacant ? 'Vacant Position' : node.name}</h3>
+
+                            <p>${node.title}</p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer">
+
+                        <span class="dept-badge" style="background:${dept.color}">${dept.name}</span>
+
+                        ${node.isVacant ? '<span class="vacant-badge">VACANT</span>' : ''}
+
+                        ${childCount > 0 ? `<span class="reports-count">▼ ${childCount}</span>` : ''}
+
+                    </div>
+
+                    ${childCount > 0 ? `
+
+                        <button class="expand-btn" onclick="event.stopPropagation();app.toggleExpand('${node.id}')">
+
+                            ${node.isExpanded ? '−' : '+'}
+
+                        </button>
+
+                    ` : ''}
+
+                </div>
+
+                ${childrenHtml}
+
+            </div>
+
+        `;
+
+    }
+
+
+
+    getInitials(name) {
+
+        if (!name) return '?';
+
+        return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+
+    }
+
+
+
+    toggleExpand(id) {
+
+        const node = findNodeById(this.orgData, id);
+
+        if (node) {
+
+            node.isExpanded = !node.isExpanded;
+
+            this.render();
+
+            this.save();
+
+        }
+
+    }
+
+
+
+    setAllExpanded(expanded) {
+
+        const setExpanded = (node) => {
+
+            node.isExpanded = expanded;
+
+            if (node.children) node.children.forEach(setExpanded);
+
+        };
+
+        if (this.orgData) {
+
+            setExpanded(this.orgData);
+
+            this.render();
+
+            this.save();
+
+        }
+
+    }
+
+
+
+    fitToScreen() {
+
+        const canvas = document.querySelector('.chart-canvas');
+
+        const wrapper = document.querySelector('.chart-wrapper');
+
+        const tree = document.querySelector('.tree');
+
+
+
+        if (!tree || !this.orgData) return;
+
+
+
+        // Disable transitions during measurement
+
+        const originalTransition = wrapper.style.transition;
+
+        wrapper.style.transition = 'none';
+
+
+
+        // Reset transform completely for accurate measurement
+
+        wrapper.style.transform = 'none';
+
+        this.currentScale = 1;
+
+        this.updateZoomDisplay();
+
+
+
+        // Force reflow
+
+        void wrapper.offsetHeight;
+
+
+
+        // --- MEASURE ACTUAL CONTENT DIMENSIONS FROM DOM ---
+
+        const cards = document.querySelectorAll('.employee-card');
+
+        if (cards.length === 0) return;
+
+
+
+        const treeRect = tree.getBoundingClientRect();
+
+        let maxX = -Infinity, maxY = -Infinity;
+
+
+
+        cards.forEach(card => {
+
+            const rect = card.getBoundingClientRect();
+
+            maxX = Math.max(maxX, rect.right);
+
+            maxY = Math.max(maxY, rect.bottom);
+
+        });
+
+
+
+        // Content dimensions from actual DOM positions
+
+        const contentWidth = maxX - treeRect.left + 40; // 40px buffer
+
+        const contentHeight = maxY - treeRect.top + 40; // 40px buffer
+
+
+
+        // --- GET ACTUAL VISIBLE VIEWPORT HEIGHT ---
+
+        // canvas.getBoundingClientRect() expands with content overflow
+
+        // Instead, use window.innerHeight minus header/toolbar heights
+
+        const header = document.querySelector('.app-header');
+
+        const toolbar = document.querySelector('.toolbar');
+
+        const headerHeight = header ? header.offsetHeight : 0;
+
+        const toolbarHeight = toolbar ? toolbar.offsetHeight : 0;
+
+
+
+        // Actual visible viewport for the canvas area
+
+        const actualViewportHeight = window.innerHeight - headerHeight - toolbarHeight;
+
+        const actualViewportWidth = canvas.clientWidth;
+
+
+
+        // Available space after padding
+
+        const availableWidth = actualViewportWidth - 80;  // 40px padding on each side
+
+        const availableHeight = actualViewportHeight - 80; // 40px padding on each side
+
+
+
+        // --- SCALE CALCULATION ---
+
+        const scaleX = availableWidth / contentWidth;
+
+        const scaleY = availableHeight / contentHeight;
+
+
+
+        // Take the smaller scale to ensure BOTH dimensions fit
+
+        const scale = Math.min(scaleX, scaleY, 1);
+
+
+
+        // Apply scale with minimum of 15%
+
+        this.currentScale = Math.max(scale, 0.15);
+
+        wrapper.style.transform = `scale(${this.currentScale})`;
+
+
+
+        // Restore transition
+
+        requestAnimationFrame(() => {
+
+            wrapper.style.transition = originalTransition;
+
+        });
+
+
+
+        // Scroll to top-left
+
+        canvas.scrollTo({ left: 0, top: 0 });
+
+
+
+        this.updateZoomDisplay();
+
+        this.showToast(`Fitted to ${Math.round(this.currentScale * 100)}%`);
+
+    }
+
+
+
+    resetZoom() {
+
+        const wrapper = document.querySelector('.chart-wrapper');
+
+        if (wrapper) {
+
+            wrapper.style.transform = 'none';
+
+            this.currentScale = 1;
+
+            this.updateZoomDisplay();
+
+        }
+
+    }
+
+
+
+    zoomIn() {
+
+        this.currentScale = Math.min(this.currentScale + 0.1, 2);
+
+        this.applyZoom();
+
+    }
+
+
+
+    zoomOut() {
+
+        this.currentScale = Math.max(this.currentScale - 0.1, 0.2);
+
+        this.applyZoom();
+
+    }
+
+
+
+    // Touch Zoom Handling
+
+    handleTouchStart(e) {
+
+        if (e.touches.length === 2) {
+
+            e.preventDefault(); // Prevent default scroll/zoom
+
+            this.initialPinchDistance = this.getPinchDistance(e);
+
+            this.initialPinchScale = this.currentScale;
+
+        }
+
+    }
+
+
+
+    handleTouchMove(e) {
+
+        if (e.touches.length === 2) {
+
+            e.preventDefault();
+
+            const currentDistance = this.getPinchDistance(e);
+
+            if (this.initialPinchDistance > 0) {
+
+                // Calculate new scale relative to initial pinch
+
+                const scale = (currentDistance / this.initialPinchDistance) * this.initialPinchScale;
+
+                this.currentScale = Math.min(Math.max(scale, 0.2), 3); // Allow a bit more zoom on mobile
+
+                this.applyZoom();
+
+            }
+
+        }
+
+    }
+
+
+
+    getPinchDistance(e) {
+
+        return Math.hypot(
+
+            e.touches[0].clientX - e.touches[1].clientX,
+
+            e.touches[0].clientY - e.touches[1].clientY
+
+        );
+
+    }
+
+
+
+    applyZoom() {
+
+        const wrapper = document.querySelector('.chart-wrapper');
+
+        if (wrapper) {
+
+            wrapper.style.transform = `scale(${this.currentScale})`;
+
+            wrapper.style.transformOrigin = 'top center';
+
+            this.updateZoomDisplay();
+
+        }
+
+    }
+
+
+
+    updateZoomDisplay() {
+
+        const zoomEl = document.getElementById('zoomLevel');
+
+        if (zoomEl) {
+
+            zoomEl.textContent = `${Math.round(this.currentScale * 100)}%`;
+
+        }
+
+    }
+
+
+
+    // Modals
+
+    openModal(type, id = null) {
+
+        this.closeModals();
+
+        const modal = document.getElementById('employeeModal');
+
+        const form = document.getElementById('employeeForm');
+
+        const title = document.getElementById('modalTitle');
+
+
+
+        form.reset();
+
+        document.getElementById('empId').value = '';
+
+        document.getElementById('parentId').value = '';
+
+
+
+        if (type === 'add') {
+
+            title.textContent = this.orgData ? 'Add Employee' : 'Add CEO / Root Employee';
+
+        } else if (type === 'edit' && id) {
+
+            title.textContent = 'Edit Employee';
+
+            const node = findNodeById(this.orgData, id);
+
+            if (node) {
+
+                document.getElementById('empId').value = node.id;
+
+                document.getElementById('empName').value = node.name || '';
+
+                document.getElementById('empTitle').value = node.title || '';
+
+                document.getElementById('empDept').value = node.department || '';
+
+                document.getElementById('empEmail').value = node.email || '';
+
+                document.getElementById('empPhone').value = node.phone || '';
+
+                document.getElementById('empVacant').checked = node.isVacant || false;
+
+            }
+
+        } else if (type === 'subordinate' && id) {
+
+            title.textContent = 'Add Subordinate';
+
+            document.getElementById('parentId').value = id;
+
+        }
+
+
+
+        this.populateDeptSelect();
+
+        modal.classList.add('active');
+
+    }
+
+
+
+    // --- Department Management ---
+
+
+
+    openDeptModal() {
+
+        this.renderDeptList();
+
+        this.resetDeptForm();
+
+        document.getElementById('deptModal').classList.add('active');
+
+    }
+
+
+
+    closeDeptModal() {
+
+        document.getElementById('deptModal').classList.remove('active');
+
+    }
+
+
+
+    renderDeptList() {
+
+        const list = document.getElementById('deptList');
+
+        if (!list) return;
+
+        list.innerHTML = '';
+
+
+
+        Object.entries(this.departments).forEach(([key, dept]) => {
+
+            const li = document.createElement('li');
+
+            li.className = 'dept-item';
+
+
+
+            // Check if department is in use
+
+            const stats = countEmployees(this.orgData);
+
+            const count = stats.byDept[key] || 0;
+
+            const canDelete = count === 0;
+
+
+
+            li.innerHTML = `
+
+                <div class="dept-info">
+
+                    <span class="dept-color-dot" style="background: ${dept.color}"></span>
+
+                    <span><strong>${dept.name}</strong> <small>(${key})</small></span>
+
+                    ${count > 0 ? `<span class="employee-count">${count} emp</span>` : ''}
+
+                </div>
+
+                <div class="dept-actions">
+
+                    <button class="btn-icon-small" onclick="app.editDepartment('${key}')" title="Edit">✎</button>
+
+                    ${canDelete ?
+
+                    `<button class="btn-icon-small" onclick="app.deleteDepartment('${key}')" title="Delete" style="color:red">🗑</button>` :
+
+                    `<button class="btn-icon-small" title="Cannot delete (in use)" disabled style="opacity:0.3">🗑</button>`
+
+                }
+
+                </div>
+
+            `;
+
+            list.appendChild(li);
+
+        });
+
+    }
+
+
+
+    deleteDepartment(key) {
+
+        if (confirm(`Are you sure you want to delete the "${this.departments[key].name}" department?`)) {
+
+            delete this.departments[key];
+
+            if (StorageManager.saveDepartments(this.departments)) {
+
+                this.showToast('Department deleted');
+
+                this.renderDeptList();
+
+                this.render(); // Re-render chart to update legends/colors if needed
+
+                this.renderLegend(); // Update the sidebar legend
+
+            } else {
+
+                this.showToast('Failed to save changes');
+
+            }
+
+        }
+
+    }
+
+
+
+    editDepartment(key) {
+
+        const dept = this.departments[key];
+
+        document.getElementById('deptName').value = dept.name;
+
+        document.getElementById('deptColor').value = dept.color;
+
+        document.getElementById('deptIdInput').value = key;
+
+        document.getElementById('deptIdInput').disabled = true; // Cannot change key
+
+        document.getElementById('editDeptKey').value = key;
+
+        document.getElementById('saveDeptBtn').textContent = 'Update Department';
+
+    }
+
+
+
+    resetDeptForm() {
+
+        document.forms['deptForm'].reset();
+
+        document.getElementById('deptIdInput').disabled = false;
+
+        document.getElementById('editDeptKey').value = '';
+
+        document.getElementById('saveDeptBtn').textContent = 'Add Department';
+
+    }
+
+
+
+    saveDepartment(e) {
+
+        console.log('saveDepartment called');
+
+        if (e) e.preventDefault();
+
+        const name = document.getElementById('deptName').value.trim();
+
+        const color = document.getElementById('deptColor').value;
+
+        let pKey = document.getElementById('deptIdInput').value.trim();
+
+        const editKey = document.getElementById('editDeptKey').value;
+
+
+
+        console.log('Input:', { name, color, pKey, editKey });
+
+
+
+        if (!name || !pKey) {
+
+            console.error('Missing name or ID');
+
+            this.showToast('Name and ID are required');
+
+            return;
+
+        }
+
+
+
+        // Auto-sanitize ID: lowercase, replace non-alphanumeric with underscore
+
+        let key = pKey.toLowerCase().replace(/[^a-z0-9]/g, '_');
+
+
+
+        // Remove duplicate underscores
+
+        key = key.replace(/_+/g, '_');
+
+        // Remove leading/trailing underscores
+
+        key = key.replace(/^_|_$/g, '');
+
+
+
+        console.log('Sanitized Key:', key);
+
+
+
+        if (!key) {
+
+            console.error('Invalid key after sanitization');
+
+            this.showToast('Invalid ID generated. Please use letters/numbers.');
+
+            return;
+
+        }
+
+
+
+        // If creating new, check if key exists
+
+        if (!editKey && this.departments[key]) {
+
+            console.error('Key exists:', key);
+
+            this.showToast('Department ID already exists: ' + key);
+
+            return;
+
+        }
+
+
+
+        // If editing, use the original key
+
+        if (editKey) {
+
+            key = editKey;
+
+        }
+
+
+
+        console.log('Saving to departments object:', key, { name, color });
+
+        this.departments[key] = { name, color };
+
+
+
+        if (StorageManager.saveDepartments(this.departments)) {
+
+            console.log('StorageManager save successful');
+
+            this.showToast(editKey ? 'Department updated' : 'Department added');
+
+            this.renderDeptList();
+
+            this.resetDeptForm();
+
+            this.render(); // Update chart colors
+
+            this.renderLegend();
+
+            this.populateDeptSelect();
+
+        } else {
+
+            console.error('StorageManager save failed');
+
+            this.showToast('Failed to save changes');
+
+        }
+
+    }
+
+
+
+    closeModals() {
+
+        document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+
+        this.hideContextMenu();
+
+    }
+
+
+
+    populateDeptSelect() {
+
+        const select = document.getElementById('empDept');
+
+        select.innerHTML = Object.entries(this.departments)
+
+            .map(([key, val]) => `<option value="${key}">${val.name}</option>`)
+
+            .join('');
+
+    }
+
+
+
+    saveEmployee() {
+
+        const id = document.getElementById('empId').value;
+
+        const parentId = document.getElementById('parentId').value;
+
+
+
+        const empData = {
+
+            id: id || generateId(),
+
+            name: document.getElementById('empName').value,
+
+            title: document.getElementById('empTitle').value,
+
+            department: document.getElementById('empDept').value,
+
+            email: document.getElementById('empEmail').value,
+
+            phone: document.getElementById('empPhone').value,
+
+            isVacant: document.getElementById('empVacant').checked,
+
+            isExpanded: true,
+
+            children: []
+
+        };
+
+
+
+        if (id) {
+
+            // Edit existing
+
+            const node = findNodeById(this.orgData, id);
+
+            if (node) {
+
+                Object.assign(node, empData, { children: node.children });
+
+            }
+
+        } else if (parentId) {
+
+            // Add subordinate
+
+            const parent = findNodeById(this.orgData, parentId);
+
+            if (parent) {
+
+                if (!parent.children) parent.children = [];
+
+                parent.children.push(empData);
+
+            }
+
+        } else {
+
+            // Add root
+
+            if (!this.orgData) {
+
+                this.orgData = empData;
+
+            } else {
+
+                // Make new root with current as child
+
+                empData.children = [this.orgData];
+
+                this.orgData = empData;
+
+            }
+
+        }
+
+
+
+        this.closeModals();
+
+        this.render();
+
+        this.save();
+
+    }
+
+
+
+    confirmDelete(id) {
+
+        this.selectedNode = id;
+
+        document.getElementById('deleteModal').classList.add('active');
+
+    }
+
+
+
+    deleteEmployee() {
+
+        if (this.selectedNode) {
+
+            if (this.orgData.id === this.selectedNode) {
+
+                // Deleting root
+
+                if (this.orgData.children && this.orgData.children.length === 1) {
+
+                    this.orgData = this.orgData.children[0];
+
+                } else {
+
+                    this.orgData = null;
+
+                    StorageManager.clear();
+
+                }
+
+            } else {
+
+                deleteNodeById(this.orgData, this.selectedNode);
+
+            }
+
+            this.selectedNode = null;
+
+            this.closeModals();
+
+            this.render();
+
+            this.save();
+
+        }
+
+    }
+
+
+
+    // Delete a node but keep its subordinates (move them up to parent)
+
+    deleteAndKeepSubordinates(id) {
+
+        if (!this.orgData || !id) return;
+
+
+
+        // Find the node and its parent
+
+        const findNodeAndParent = (node, targetId, parent = null) => {
+
+            if (node.id === targetId) return { node, parent };
+
+            if (node.children) {
+
+                for (const child of node.children) {
+
+                    const result = findNodeAndParent(child, targetId, node);
+
+                    if (result) return result;
+
+                }
+
+            }
+
+            return null;
+
+        };
+
+
+
+        // Handle root node deletion
+
+        if (this.orgData.id === id) {
+
+            if (!this.orgData.children || this.orgData.children.length === 0) {
+
+                // No children, just delete
+
+                this.orgData = null;
+
+                StorageManager.clear();
+
+            } else if (this.orgData.children.length === 1) {
+
+                // One child becomes new root
+
+                this.orgData = this.orgData.children[0];
+
+            } else {
+
+                // Multiple children - can't delete root without choosing a successor
+
+                this.showToast('Cannot delete root with multiple subordinates. Choose a successor first.');
+
+                return;
+
+            }
+
+        } else {
+
+            // Find node and parent
+
+            const result = findNodeAndParent(this.orgData, id);
+
+            if (!result || !result.parent) {
+
+                this.showToast('Could not find employee');
+
+                return;
+
+            }
+
+
+
+            const { node, parent } = result;
+
+
+
+            // Remove node from parent's children
+
+            const nodeIndex = parent.children.findIndex(c => c.id === id);
+
+            parent.children.splice(nodeIndex, 1);
+
+
+
+            // Move node's children to parent
+
+            if (node.children && node.children.length > 0) {
+
+                if (!parent.children) parent.children = [];
+
+                parent.children.push(...node.children);
+
+            }
+
+        }
+
+
+
+        this.selectedNode = null;
+
+        this.render();
+
+        this.save();
+
+        this.showToast('Employee removed, subordinates preserved');
+
+    }
+
+
+
+    // --- Drag and Drop Logic ---
+
+
+
+    handleDragStart(e, id) {
+
+        e.dataTransfer.setData('text/plain', id);
+
+        e.dataTransfer.effectAllowed = 'move';
+
+        // Add a visual class to the dragged element
+
+        setTimeout(() => e.target.classList.add('dragging'), 0);
+
+        document.body.classList.add('dragging-active');
+
+    }
+
+
+
+    handleDragEnd(e) {
+
+        // Cleanup global states if drop didn't happen or finished
+
+        document.body.classList.remove('dragging-active');
+
+        document.querySelectorAll('.dragging').forEach(el => el.classList.remove('dragging'));
+
+        document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+
+    }
+
+
+
+    handleDragOver(e) {
+
+        e.preventDefault(); // Necessary to allow dropping
+
+        e.dataTransfer.dropEffect = 'move';
+
+    }
+
+
+
+    handleDragEnter(e) {
+
+        e.preventDefault();
+
+        // Add visual indicator to drop target
+
+        const card = e.target.closest('.employee-card');
+
+        if (card && !card.classList.contains('dragging')) {
+
+            card.classList.add('drag-over');
+
+        }
+
+    }
+
+
+
+    handleDragLeave(e) {
+
+        // Remove visual indicator
+
+        const card = e.target.closest('.employee-card');
+
+        if (card) {
+
+            card.classList.remove('drag-over');
+
+        }
+
+    }
+
+
+
+    handleDrop(e, targetId) {
+
+        e.preventDefault();
+
+        this.handleDragEnd(); // Cleanup styles immediately
+
+
+
+        const draggedId = e.dataTransfer.getData('text/plain');
+
+        if (!draggedId || draggedId === targetId) return;
+
+
+
+        // Prevent circular reference (dropping parent on its own child/descendant)
+
+        if (this.isDescendant(draggedId, targetId)) {
+
+            this.showToast('Cannot move a manager under their own subordinate');
+
+            return;
+
+        }
+
+
+
+        // Logic to move the node
+
+        this.moveNode(draggedId, targetId);
+
+    }
+
+
+
+    isDescendant(parentId, childId) {
+
+        const parent = findNodeById(this.orgData, parentId);
+
+        if (!parent) return false;
+
+
+
+        const check = (node) => {
+
+            if (node.id === childId) return true;
+
+            if (node.children) {
+
+                return node.children.some(check);
+
+            }
+
+            return false;
+
+        };
+
+
+
+        return check(parent); // If childId is found inside parent's tree
+
+    }
+
+
+
+    moveNode(draggedId, newParentId) {
+
+        // Find dragged node and its CURRENT parent
+
+        const findResult = this.findNodeAndParent(this.orgData, draggedId);
+
+        if (!findResult || !findResult.parent) {
+
+            this.showToast('Cannot move root node'); // Or node not found
+
+            return;
+
+        }
+
+
+
+        const { node: draggedNode, parent: oldParent } = findResult;
+
+        const newParent = findNodeById(this.orgData, newParentId);
+
+
+
+        if (!newParent) return;
+
+
+
+        // Remove from old parent
+
+        const index = oldParent.children.findIndex(c => c.id === draggedId);
+
+        if (index > -1) {
+
+            oldParent.children.splice(index, 1);
+
+        }
+
+
+
+        // Add to new parent
+
+        if (!newParent.children) newParent.children = [];
+
+        newParent.children.push(draggedNode);
+
+        newParent.isExpanded = true; // Expand new parent so we see the change
+
+
+
+        this.render();
+
+        this.save();
+
+        this.showToast(`Moved ${draggedNode.name} to ${newParent.name}'s team`);
+
+    }
+
+
+
+    findNodeAndParent(node, targetId, parent = null) {
+
+        if (node.id === targetId) return { node, parent };
+
+        if (node.children) {
+
+            for (const child of node.children) {
+
+                const result = this.findNodeAndParent(child, targetId, node);
+
+                if (result) return result;
+
+            }
+
+        }
+
+        return null;
+
+    }
+
+
+
+
+
+
+
+    renderLegend() {
+
+        const container = document.getElementById('legendItems');
+
+        container.innerHTML = Object.entries(this.departments)
+
+            .map(([key, val]) => `
+
+                <div class="legend-item">
+
+                    <span class="legend-color" style="background:${val.color}"></span>
+
+                    <span>${val.name}</span>
+
+                </div>
+
+            `).join('');
+
+
+
+        // Also update filter dropdown
+
+        const filter = document.getElementById('deptFilter');
+
+        filter.innerHTML = '<option value="">All Departments</option>' +
+
+            Object.entries(this.departments)
+
+                .map(([key, val]) => `<option value="${key}">${val.name}</option>`)
+
+                .join('');
+
+    }
+
+
+
+    // Context Menu
+
+    showContextMenu(e, id) {
+
+        const menu = document.getElementById('contextMenu');
+
+        this.selectedNode = id;
+
+
+
+        // Check if root
+
+        const isRoot = this.orgData && this.orgData.id === id;
+
+        const deleteOptions = menu.querySelectorAll('.danger');
+
+        deleteOptions.forEach(el => {
+
+            el.style.display = isRoot ? 'none' : 'flex';
+
+        });
+
+
+
+        // Use client coordinates for fixed positioning
+
+        let x = e.clientX;
+
+        let y = e.clientY;
+
+
+
+        // Ensure menu stays within viewport
+
+        const menuWidth = 180;
+
+        const menuHeight = isRoot ? 80 : 120; // Adjust height if items hidden
+
+
+
+        if (x + menuWidth > window.innerWidth) {
+
+            x = window.innerWidth - menuWidth - 10;
+
+        }
+
+        if (y + menuHeight > window.innerHeight) {
+
+            y = window.innerHeight - menuHeight - 10;
+
+        }
+
+
+
+        menu.style.left = x + 'px';
+
+        menu.style.top = y + 'px';
+
+        menu.classList.add('active');
+
+    }
+
+
+
+    hideContextMenu() {
+
+        document.getElementById('contextMenu').classList.remove('active');
+
+    }
+
+
+
+    handleContextAction(action) {
+
+        if (!this.selectedNode) return;
+
+
+
+        switch (action) {
+
+            case 'addSub':
+
+                this.openModal('subordinate', this.selectedNode);
+
+                break;
+
+            case 'edit':
+
+                this.openModal('edit', this.selectedNode);
+
+                break;
+
+            case 'delete':
+
+                this.confirmDelete(this.selectedNode);
+
+                break;
+
+            case 'deleteKeepSubs':
+
+                this.deleteAndKeepSubordinates(this.selectedNode);
+
+                break;
+
+        }
+
+        this.hideContextMenu();
+
+    }
+
+
+
+    // Stats
+
+    updateStats() {
+
+        const stats = this.orgData ? countEmployees(this.orgData) : { total: 0 };
+
+        document.getElementById('employeeCount').textContent = `${stats.total} employees`;
+
+    }
+
+
+
+    // Import/Export
+
+    exportJSON() {
+
+        if (!this.orgData) {
+
+            this.showToast('No data to export');
+
+            return;
+
+        }
+
+        const data = JSON.stringify(this.orgData, null, 2);
+
+        const blob = new Blob([data], { type: 'application/json' });
+
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+
+        a.href = url;
+
+        a.download = 'org-chart-' + new Date().toISOString().split('T')[0] + '.json';
+
+        a.click();
+
+        URL.revokeObjectURL(url);
+
+        this.showToast('Chart exported');
+
+    }
+
+
+
+    importJSON(e) {
+
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+
+
+        const reader = new FileReader();
+
+        reader.onload = (ev) => {
+
+            try {
+
+                const data = JSON.parse(ev.target.result);
+
+                this.orgData = data;
+
+                this.render();
+
+                this.save();
+
+                this.showToast('Chart imported successfully');
+
+            } catch (err) {
+
+                this.showToast('Invalid JSON file');
+
+            }
+
+        };
+
+        reader.readAsText(file);
+
+        e.target.value = '';
+
+    }
+
+
+
+    // Print using browser's print dialog
+
+    printChart() {
+
+        const wrapper = document.querySelector('.chart-wrapper');
+
+        const tree = document.querySelector('.tree');
+
+
+
+        if (!wrapper || !tree || !this.orgData) {
+
+            this.showToast('No chart to print');
+
+            return;
+
+        }
+
+
+
+        const treeDepth = getTreeDepth(this.orgData);
+
+        const treeMaxWidth = getTreeMaxWidth(this.orgData);
+
+
+
+        const CARD_SLOT_WIDTH = 230;
+
+        const LEVEL_HEIGHT = 180;
+
+
+
+        const estimatedWidth = treeMaxWidth * CARD_SLOT_WIDTH;
+
+        const estimatedHeight = treeDepth * LEVEL_HEIGHT;
+
+
+
+        const a4Portrait = { width: 720, height: 1020 };
+
+        const a4Landscape = { width: 1020, height: 720 };
+
+
+
+        const portraitScale = Math.min(a4Portrait.width / estimatedWidth, a4Portrait.height / estimatedHeight, 1);
+
+        const landscapeScale = Math.min(a4Landscape.width / estimatedWidth, a4Landscape.height / estimatedHeight, 1);
+
+
+
+        const useLandscape = landscapeScale > portraitScale;
+
+        const finalScale = Math.max(useLandscape ? landscapeScale : portraitScale, 0.20);
+
+        const orientation = useLandscape ? 'landscape' : 'portrait';
+
+
+
+        wrapper.style.transition = 'none';
+
+        wrapper.style.transform = 'none';
+
+        this.currentScale = 1;
+
+
+
+        document.documentElement.style.setProperty('--print-scale', finalScale.toFixed(3));
+
+
+
+        const existingStyle = document.getElementById('print-orientation-style');
+
+        if (existingStyle) existingStyle.remove();
+
+
+
+        const styleEl = document.createElement('style');
+
+        styleEl.id = 'print-orientation-style';
+
+        styleEl.textContent = `@page { size: A4 ${orientation}; margin: 10mm; }`;
+
+        document.head.appendChild(styleEl);
+
+
+
+        this.showToast(`Printing at ${Math.round(finalScale * 100)}% (${orientation.toUpperCase()})`);
+
+
+
+        setTimeout(() => {
+
+            window.print();
+
+        }, 300);
+
+    }
+
+
+
+    // Export directly to PDF file using html2canvas + jsPDF
+
+    async exportToPDF() {
+
+        const tree = document.querySelector('.tree');
+
+        const wrapper = document.querySelector('.chart-wrapper');
+
+        const canvas = document.querySelector('.chart-canvas');
+
+
+
+        if (!tree || !this.orgData) {
+
+            this.showToast('No chart to export');
+
+            return;
+
+        }
+
+
+
+        this.showToast('Generating PDF... Please wait');
+
+
+
+        // Store original states
+
+        const originalTransform = wrapper.style.transform;
+
+        const originalTransition = wrapper.style.transition;
+
+        const originalOverflow = canvas ? canvas.style.overflow : '';
+
+
+
+        // Add temporary style for PDF export (to ensure borders are visible)
+
+        const pdfStyle = document.createElement('style');
+
+        pdfStyle.id = 'pdf-export-style';
+
+        pdfStyle.textContent = `
+
+            .employee-card {
+
+                border-color: #cbd5e1 !important;
+
+                box-shadow: none !important;
+
+            }
+
+        `;
+
+        document.head.appendChild(pdfStyle);
+
+
+
+        try {
+
+            // Reset zoom and ensure full content is visible
+
+            wrapper.style.transition = 'none';
+
+            wrapper.style.transform = 'none';
+
+            if (canvas) {
+
+                canvas.style.overflow = 'visible';
+
+            }
+
+
+
+            // Force reflow and wait for DOM
+
+            void wrapper.offsetHeight;
+
+            await new Promise(resolve => setTimeout(resolve, 300));
+
+
+
+            // Capture the tree as canvas
+
+            const capturedCanvas = await html2canvas(tree, {
+
+                scale: 2,
+
+                useCORS: true,
+
+                logging: false,
+
+                backgroundColor: '#ffffff',
+
+                allowTaint: true
+
+            });
+
+
+
+            // Get captured image dimensions
+
+            const imgWidth = capturedCanvas.width;
+
+            const imgHeight = capturedCanvas.height;
+
+            const imgAspectRatio = imgWidth / imgHeight;
+
+
+
+            // A4 dimensions in mm
+
+            const a4Width = 297; // landscape width
+
+            const a4Height = 210; // landscape height (portrait would be 297)
+
+            const margin = 10; // mm
+
+
+
+            // Determine orientation based on aspect ratio
+
+            // If image is wider than tall (ratio > 1), use landscape
+
+            // If image is taller than wide (ratio < 1), use portrait
+
+            const useLandscape = imgAspectRatio >= 1;
+
+
+
+            const pageWidth = useLandscape ? 297 : 210;
+
+            const pageHeight = useLandscape ? 210 : 297;
+
+            const printableWidth = pageWidth - (margin * 2);
+
+            const printableHeight = pageHeight - (margin * 2);
+
+
+
+            // Calculate scale to fit image on page
+
+            const scaleX = printableWidth / (imgWidth / 2); // Divide by 2 because canvas scale is 2
+
+            const scaleY = printableHeight / (imgHeight / 2);
+
+            const scale = Math.min(scaleX, scaleY, 1); // Don't scale up, only down
+
+
+
+            const finalWidth = (imgWidth / 2) * scale;
+
+            const finalHeight = (imgHeight / 2) * scale;
+
+
+
+            // Center on page
+
+            const xOffset = margin + (printableWidth - finalWidth) / 2;
+
+            const yOffset = margin + (printableHeight - finalHeight) / 2;
+
+
+
+            // Create PDF
+
+            const { jsPDF } = window.jspdf;
+
+            const pdf = new jsPDF({
+
+                orientation: useLandscape ? 'landscape' : 'portrait',
+
+                unit: 'mm',
+
+                format: 'a4'
+
+            });
+
+
+
+            // Add the image
+
+            const imgData = capturedCanvas.toDataURL('image/png');
+
+            pdf.addImage(imgData, 'PNG', xOffset, yOffset, finalWidth, finalHeight);
+
+
+
+            // Save
+
+            pdf.save('org-chart.pdf');
+
+
+
+            // Restore original states
+
+            wrapper.style.transform = originalTransform;
+
+            wrapper.style.transition = originalTransition;
+
+            if (canvas) canvas.style.overflow = originalOverflow;
+
+            if (pdfStyle) pdfStyle.remove();
+
+
+
+            this.showToast(`PDF downloaded! (${useLandscape ? 'Landscape' : 'Portrait'})`);
+
+
+
+        } catch (err) {
+
+            // Restore on error
+
+            wrapper.style.transform = originalTransform;
+
+            wrapper.style.transition = originalTransition;
+
+            if (canvas) canvas.style.overflow = originalOverflow;
+
+            if (pdfStyle) pdfStyle.remove();
+
+
+
+            this.showToast('PDF export failed');
+
+            console.error('PDF export error:', err);
+
+        }
+
+    }
+
+
+
+    // Export to Word document (Text-based hierarchy)
+
+    async exportToWord() {
+
+        if (!this.orgData) {
+
+            this.showToast('No chart to export');
+
+            return;
+
+        }
+
+
+
+        this.showToast('Generating Word document...');
+
+
+
+        try {
+
+            const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, BorderStyle } = docx;
+
+
+
+            // Build hierarchy as indented text
+
+            const buildOrgContent = (node, level = 0, isLast = false) => {
+
+                const content = [];
+
+                // Indent based on level (using tab stops or simple spaces/indent property)
+
+                // For root (level 0), we center it specially
+
+
+
+                if (level === 0) {
+
+                    // Root node - Centered with box-like look
+
+                    content.push(new Paragraph({
+
+                        alignment: AlignmentType.CENTER,
+
+                        border: {
+
+                            bottom: { style: BorderStyle.SINGLE, size: 12, color: "000000" },
+
+                        },
+
+                        children: [
+
+                            new TextRun({ text: "│ ", size: 24 }),
+
+                            new TextRun({ text: node.name, bold: true, size: 28 }),
+
+                            new TextRun({ text: " │", size: 24 })
+
+                        ],
+
+                        spacing: { before: 200 }
+
+                    }));
+
+                    content.push(new Paragraph({
+
+                        alignment: AlignmentType.CENTER,
+
+                        children: [
+
+                            new TextRun({ text: "│ ", size: 20 }),
+
+                            new TextRun({ text: node.title, italics: true, size: 24 }),
+
+                            new TextRun({ text: " │", size: 20 })
+
+                        ],
+
+                        border: {
+
+                            bottom: { style: BorderStyle.SINGLE, size: 12, color: "000000" }
+
+                        },
+
+                        spacing: { after: 400 }
+
+                    }));
+
+                } else {
+
+                    // Child nodes - Indented list with ASCII connectors
+
+                    const indentTwips = level * 720; // 0.5 inch per level
+
+
+
+                    // 1. Vertical connector line (gap filler)
+
+                    content.push(new Paragraph({
+
+                        indent: { left: indentTwips },
+
+                        children: [
+
+                            new TextRun({ text: "│", size: 20, font: "Courier New" })
+
+                        ],
+
+                        spacing: { before: 0, after: 0, line: 240 }
+
+                    }));
+
+
+
+                    // 2. The node itself with connector
+
+                    content.push(new Paragraph({
+
+                        indent: { left: indentTwips },
+
+                        children: [
+
+                            new TextRun({ text: "└─ ", size: 20, font: "Courier New" }),
+
+                            new TextRun({ text: node.name, bold: true, size: 24 }),
+
+                            new TextRun({ text: " (" + node.title + ")", italics: true, size: 20 }),
+
+                            new TextRun({ text: " - " + (node.department || ""), size: 18, color: "888888" })
+
+                        ],
+
+                        spacing: { before: 0, after: 0, line: 360 } // slightly more space after item
+
+                    }));
+
+                }
+
+
+
+                // Process children
+
+                if (node.children && node.children.length > 0) {
+
+                    node.children.forEach((child, index) => {
+
+                        content.push(...buildOrgContent(child, level + 1, index === node.children.length - 1));
+
+                    });
+
+                }
+
+
+
+                return content;
+
+            };
+
+
+
+            // Build the document
+
+            const doc = new Document({
+
+                sections: [{
+
+                    properties: {},
+
+                    children: [
+
+                        new Paragraph({
+
+                            text: "Organizational Chart",
+
+                            heading: HeadingLevel.HEADING_1,
+
+                            alignment: AlignmentType.CENTER
+
+                        }),
+
+                        new Paragraph({
+
+                            alignment: AlignmentType.CENTER,
+
+                            children: [
+
+                                new TextRun({
+
+                                    text: `Generated on ${new Date().toLocaleDateString()}`,
+
+                                    size: 20,
+
+                                    color: '888888'
+
+                                })
+
+                            ],
+
+                            spacing: { after: 400 }
+
+                        }),
+
+                        ...buildOrgContent(this.orgData)
+
+                    ]
+
+                }]
+
+            });
+
+
+
+            // Generate and download
+
+            const blob = await Packer.toBlob(doc);
+
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+
+            link.href = url;
+
+            link.download = 'org-chart.docx';
+
+            link.click();
+
+            URL.revokeObjectURL(url);
+
+            this.showToast('Word document downloaded!');
+
+
+
+        } catch (err) {
+
+            this.showToast('Word export failed');
+
+            console.error('Word export error:', err);
+
+        }
+
+    }
+
+
+
+    // Export to HTML file (Word-compatible)
+
+    exportToHTML() {
+
+        const tree = document.querySelector('.tree');
+
+
+
+        if (!tree || !this.orgData) {
+
+            this.showToast('No chart to export');
+
+            return;
+
+        }
+
+
+
+        this.showToast('Generating HTML...');
+
+
+
+        // Clone the tree
+
+        const treeClone = tree.cloneNode(true);
+
+
+
+        // Remove expand buttons from clone
+
+        treeClone.querySelectorAll('.expand-btn').forEach(btn => btn.remove());
+
+
+
+        // Build the HTML document with embedded styles matching styles.css
+
+        const htmlContent = `<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>Organizational Chart</title>
+
+    <style>
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body { 
+
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+            background: white;
+
+            padding: 20px;
+
+        }
+
+        h1 { text-align: center; margin-bottom: 10px; color: #1e293b; }
+
+        .date { text-align: center; color: #64748b; margin-bottom: 30px; }
+
+        
+
+        .tree { display: flex; flex-direction: column; align-items: center; }
+
+        .tree-node { display: flex; flex-direction: column; align-items: center; position: relative; }
+
+        
+
+        /* Container for children */
+
+        .tree-children { display: flex; gap: 24px; padding-top: 24px; position: relative; margin-top: 24px; }
+
+        
+
+        /* Vertical line down from parent (on the card) */
+
+        .tree-node.has-children > .employee-card::after {
+
+            content: '';
+
+            position: absolute;
+
+            bottom: -26px;
+
+            left: 50%;
+
+            width: 2px;
+
+            height: 18px;
+
+            background: #94a3b8;
+
+            transform: translateX(-50%);
+
+        }
+
+
+
+        /* Vertical line up from each child */
+
+        .tree-children > .tree-node::before {
+
+            content: '';
+
+            position: absolute;
+
+            top: -24px;
+
+            left: 50%;
+
+            width: 2px;
+
+            height: 24px;
+
+            background: #94a3b8;
+
+            transform: translateX(-50%);
+
+        }
+
+
+
+        /* Horizontal connector segments */
+
+        
+
+        /* First child - line goes right */
+
+        .tree-children > .tree-node:not(:only-child):first-child::after {
+
+            content: '';
+
+            position: absolute;
+
+            top: -24px;
+
+            left: 50%;
+
+            width: calc(100% - 50% + 12px);
+
+            height: 2px;
+
+            background: #94a3b8;
+
+        }
+
+
+
+        /* Last child - line goes left */
+
+        .tree-children > .tree-node:not(:only-child):last-child::after {
+
+            content: '';
+
+            position: absolute;
+
+            top: -24px;
+
+            right: 50%;
+
+            width: calc(100% - 50% + 12px);
+
+            height: 2px;
+
+            background: #94a3b8;
+
+        }
+
+
+
+        /* Middle children - line spans full width */
+
+        .tree-children > .tree-node:not(:only-child):not(:first-child):not(:last-child)::after {
+
+            content: '';
+
+            position: absolute;
+
+            top: -24px;
+
+            left: -12px;
+
+            right: -12px;
+
+            height: 2px;
+
+            background: #94a3b8;
+
+        }
+
+
+
+        .employee-card {
+
+            background: white;
+
+            border: 2px solid #e2e8f0;
+
+            border-radius: 12px;
+
+            padding: 16px 20px;
+
+            min-width: 180px;
+
+            text-align: center;
+
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+
+            position: relative;
+
+        }
+
+        
+
+        .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+
+        .avatar {
+
+            width: 40px;
+
+            height: 40px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: white;
+
+            font-weight: 600;
+
+            font-size: 14px;
+
+        }
+
+        .card-info { text-align: left; }
+
+        .employee-name { font-weight: 600; color: #1e293b; font-size: 14px; }
+
+        .employee-title { color: #64748b; font-size: 12px; }
+
+        .dept-badge {
+
+            display: inline-block;
+
+            padding: 4px 10px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 500;
+
+            margin-top: 8px;
+
+        }
+
+        .subordinate-count { color: #94a3b8; font-size: 11px; margin-top: 6px; }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Organizational Chart</h1>
+
+    <p class="date">Generated on ${new Date().toLocaleDateString()}</p>
+
+    ${treeClone.outerHTML}
+
+</body>
+
+</html>`;
+
+
+
+        // Download as HTML file
+
+        const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+
+        link.href = url;
+
+        link.download = 'org-chart.html';
+
+        link.click();
+
+        URL.revokeObjectURL(url);
+
+
+
+        this.showToast('HTML downloaded! Open in browser to view.');
+
+    }
+
+
+
+    confirmNewChart() {
+
+        if (confirm('Are you sure you want to start a new chart? All current data will be lost.')) {
+
+            this.orgData = null;
+
+            StorageManager.clear();
+
+            this.render();
+
+            this.showToast('New chart started');
+
+        }
+
+    }
+
+
+
+    loadSample() {
+
+        this.orgData = JSON.parse(JSON.stringify(sampleOrgData));
+
+        this.render();
+
+        this.save();
+
+        this.showToast('Sample chart loaded');
+
+    }
+
+
+
+    showToast(message) {
+
+        const container = document.getElementById('toastContainer');
+
+        const toast = document.createElement('div');
+
+        toast.className = 'toast';
+
+        toast.textContent = message;
+
+        container.appendChild(toast);
+
+        setTimeout(() => toast.remove(), 3000);
+
+    }
+
+}
+
+
+
+// Initialize app
+
+let app;
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    app = new OrgChartApp();
+
+});
+
+
+</script>
+
+</body>
+
+
+
+</html>
+
